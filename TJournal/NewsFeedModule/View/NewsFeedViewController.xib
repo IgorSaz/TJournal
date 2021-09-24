@@ -11,32 +11,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsFeedViewController" customModule="TJournal" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="4D3-ul-uEV" id="3dS-PR-L00"/>
+                <outlet property="tableView" destination="WdS-5K-KpF" id="xxx-NN-2mS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4D3-ul-uEV">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WdS-5K-KpF">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <connections>
-                        <outlet property="dataSource" destination="iN0-l3-epB" id="3yO-HK-lpZ"/>
-                        <outlet property="delegate" destination="iN0-l3-epB" id="So4-Gw-QQN"/>
+                        <outlet property="dataSource" destination="i5M-Pr-FkT" id="BVg-mv-zG9"/>
+                        <outlet property="delegate" destination="i5M-Pr-FkT" id="W4x-yh-dJx"/>
                     </connections>
                 </tableView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="4D3-ul-uEV" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="1mg-5k-9Tz"/>
-                <constraint firstItem="4D3-ul-uEV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DHD-BU-VBh"/>
-                <constraint firstItem="4D3-ul-uEV" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="SIF-V2-ns0"/>
-                <constraint firstItem="4D3-ul-uEV" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="UnR-3l-Ztu"/>
+                <constraint firstItem="WdS-5K-KpF" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="8Jf-5f-n9B"/>
+                <constraint firstItem="WdS-5K-KpF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Biq-3w-gMF"/>
+                <constraint firstItem="WdS-5K-KpF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="IBz-D2-vuk"/>
+                <constraint firstItem="WdS-5K-KpF" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="JDm-h8-qco"/>
             </constraints>
-            <point key="canvasLocation" x="-710.14492753623199" y="176.78571428571428"/>
+            <point key="canvasLocation" x="-710.14492753623199" y="170.75892857142856"/>
         </view>
     </objects>
     <resources>

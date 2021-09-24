@@ -1,14 +1,20 @@
 //
-//  NewsFeedViewController.swift
+//  FirstViewController.swift
 //  TJournal
 //
-//  Created by Игорь Сазонов on 24.09.2021.
+//  Created by Игорь Сазонов on 22.09.2021.
 //
 
 import UIKit
 
-class NewsFeedViewController: UIViewController {
+class NewsFeedViewControlle: UIViewController {
+    // MARK: - ViewModel
+    
+    //public let viewModel: ViewModel
 
+    
+    // MARK: - Outlet
+    
     @IBOutlet var tableView: UITableView!
     
     // MARK: - init View
@@ -17,7 +23,7 @@ class NewsFeedViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
-        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
+        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell") 
     }
     
     private func setupViews() {
@@ -30,7 +36,7 @@ class NewsFeedViewController: UIViewController {
     }
 }
 
-extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
+extension NewsFeedViewControlle: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
