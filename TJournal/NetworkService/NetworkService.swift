@@ -1,0 +1,117 @@
+//
+//  NetworkService.swift
+//  TJournal
+//
+//  Created by Игорь Сазонов on 25.09.2021.
+//
+
+import Foundation
+
+class NetworkService {
+    static var shared = NetworkService()
+    
+    func getNews(sortingType: SortingType, completed: @escaping (Result<News, ApiError>) -> Void) {
+            
+        
+        let urlString = sortingType.url
+        guard let url = URL(string: urlString) else {
+            completed(.failure(.invalidUrl))
+            return
+        }
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard error == nil else {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let news = try JSONDecoder().decode(News.self, from: data)
+                print(news)
+                completed(.success(news))
+            } catch {
+                print("Failure")
+                completed(.failure(.invalidData))
+                return
+            }
+            
+        }.resume()
+    }
+}
+
+
+enum ApiError: String, Error {
+    case invalidUrl = "Адрес страницы не действителен!!!"
+    case unableToComplete = "Проверьте соединение с интернетом!!!"
+    case invalidResponse = "Ответ сервера не валидный!!!"
+    case invalidData = "Не валидные данные!!!"
+}
+
+enum SortingType {
+    
+    case baseUrl
+    case hotness
+    case date
+    case day
+    case week
+    case month
+    case year
+    case all
+    
+    var baseUrl: String {
+        return "https://api.tjournal.ru/v2.0/timeline"
+    }
+    
+    var url: String {
+        switch self {
+            case .baseUrl:
+                return baseUrl
+            case .hotness:
+                return baseUrl + "?sorting=hotness"
+            case .date:
+                return baseUrl + "?sorting=date"
+            case .day:
+                return baseUrl + "?sorting=day"
+            case .week:
+                return baseUrl + "?sorting=week"
+            case .month:
+                return baseUrl + "?sorting=month"
+            case .year:
+                return baseUrl + "?sorting=year"
+            case .all:
+                return baseUrl + "?sorting=all"
+        }
+    }
+    
+        
+//    func getUrl() -> String {
+//        switch self {
+//            case .hotness:
+//                return baseUrl + "?sorting=hotness"
+//            case .date:
+//                return baseUrl + "?sorting=date"
+//            case .day:
+//                return baseUrl + "?sorting=day"
+//            case .week:
+//                return baseUrl + "?sorting=week"
+//            case .month:
+//                return baseUrl + "?sorting=month"
+//            case .year:
+//                return baseUrl + "?sorting=year"
+//            case .all:
+//                return baseUrl + "?sorting=all"
+//        }
+//    }
+}

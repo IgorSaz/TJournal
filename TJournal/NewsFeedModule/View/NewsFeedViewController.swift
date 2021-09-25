@@ -18,6 +18,25 @@ class NewsFeedViewController: UIViewController {
         setupViews()
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
         tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
+        
+        navigationItem.title = "Лента"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.layer.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+        
+        NetworkService.shared.getNews(sortingType: .baseUrl, completed: { [weak self] result in
+            switch result {
+                case .success(let news):
+                    print(news)
+                    print("YES DATA")
+//                  DispatchQueue.main.async {
+//                        updateTableView(news)
+//                  }
+                case .failure(let messageError):
+                    print(messageError)
+            }
+        })
+        
+        //navigationBar.newsCell = ""
     }
     
     private func setupViews() {

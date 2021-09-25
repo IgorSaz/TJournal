@@ -7,40 +7,69 @@
 
 import Foundation
 
-struct Request: Codable {
-    let result: Result
+struct News: Decodable {
+    let message: String
+    let result: ResultRequest
 }
 
-struct Result: Codable {
+struct ResultRequest: Decodable {
     let items: [Item]
 }
 
-struct Item: Codable {
-    let data: Data
+//struct Item: Codable {
+//    let type: String
+//    let data: T
+//}
+
+enum Item: Decodable {
+    case onboarding(Array<Data?>)
+    case entry(Data)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try container.decode(String.self, forKey: .type)
+
+        switch type {
+        case "onboarding":
+            let data = try container.decode(Array<Data?>.self, forKey: .data)
+            self = .onboarding(data)
+        case "entry":
+            let data = try container.decode(Data.self, forKey: .data)
+            self = .entry(data)
+        default:
+            throw DecodingError.unknownType
+        }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case type
+        case data
+    }
+
+    private enum DecodingError: String, Error {
+        case unknownType
+    }
 }
 
-struct Data: Codable {
-    let author: Author
-    let subsite: Subsite
-    let title: String
-    let blocks: [Block]
+struct Data: Decodable {
+    let author: Author?
 }
 
-struct Subsite: Codable {
+struct Subsite: Decodable {
     let name: String
     let avatar: Avatar
 }
 
-struct Author: Codable {
+struct Author: Decodable {
     let name: String
     let avatar: Avatar
 }
 
-struct Avatar: Codable {
+struct Avatar: Decodable {
     let data: ImageData
 }
 
-struct ImageData: Codable {
+struct ImageData: Decodable {
     let id: String
     
     enum CodingKeys: String, CodingKey {
@@ -48,19 +77,19 @@ struct ImageData: Codable {
     }
 }
 
-struct Block: Codable {
+struct Block: Decodable {
     let type: String
     let data: MediaData
 }
 
-struct MediaData: Codable {
+struct MediaData: Decodable {
     let items: [MediaItem]?
 }
 
-struct MediaItem: Codable {
+struct MediaItem: Decodable {
     let image: Image
 }
 
-struct Image: Codable {
+struct Image: Decodable {
     let data: ImageData
 }
