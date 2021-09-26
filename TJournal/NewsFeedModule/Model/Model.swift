@@ -16,11 +16,6 @@ struct ResultRequest: Decodable {
     let items: [Item]
 }
 
-//struct Item: Codable {
-//    let type: String
-//    let data: T
-//}
-
 enum Item: Decodable {
     case onboarding(Array<DataItem?>)
     case entry(DataItem)
@@ -53,6 +48,10 @@ enum Item: Decodable {
 
 struct DataItem: Decodable {
     let author: Author
+    let subsite: Subsite
+    let title: String
+    let date: Int
+    let blocks: [Block]
 }
 
 struct Subsite: Decodable {
@@ -62,7 +61,6 @@ struct Subsite: Decodable {
 
 struct Author: Decodable {
     let name: String
-    let avatar: Avatar
 }
 
 struct Avatar: Decodable {
@@ -79,7 +77,7 @@ struct ImageData: Decodable {
 
 struct Block: Decodable {
     let type: String
-    let data: MediaData
+    //let data: MediaData?
 }
 
 struct MediaData: Decodable {
@@ -87,6 +85,7 @@ struct MediaData: Decodable {
 }
 
 struct MediaItem: Decodable {
+    let title: String?
     let image: Image
 }
 

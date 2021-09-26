@@ -11,6 +11,8 @@ class NewsFeedViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     
+    var news: News!
+    
     // MARK: - init View
     
     override func viewDidLoad() {
@@ -26,16 +28,16 @@ class NewsFeedViewController: UIViewController {
         NetworkService.shared.getNews(sortingType: .baseUrl, completed: { [weak self] result in
             switch result {
                 case .success(let news):
+                    
+                    DispatchQueue.main.async {
+                        self?.news = news
+                        self?.tableView.reloadData()
+                    }
                     print(news)
-//                  DispatchQueue.main.async {
-//                        updateTableView(news)
-//                  }
                 case .failure(let messageError):
                     print(messageError)
             }
         })
-        
-        //navigationBar.newsCell = ""
     }
     
     private func setupViews() {
@@ -46,15 +48,56 @@ class NewsFeedViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
     }
+    
+//    func returnDataImage(indexCell: Int) -> Data? {
+//
+//
+//
+//
+//        return Data?()
+//    }
+    
+    
+    func returnIdImage(indexItem: Int) -> String {
+        let item = news.result.items[indexItem]
+        switch item {
+            case .onboarding(let massDataItem):
+                print(massDataItem)
+                return ""
+            case .entry(let data):
+                print(data)
+                return data.subsite.avatar.data.id
+        }
+    }
 }
 
 extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        self.news?.result.items.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath)
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsFeedTableViewCell
+        cell?.setupCell(news: self.news, indexPath: indexPath)
+        
+//        cell?.setupCell(news: self.news, indexPath: indexPath)
+        
+//        let idImage = returnIdImage(indexItem: indexPath.row)
+        
+//        if idImage != "" {
+//            NetworkService.shared.loadImage(idImage: idImage) { (result) in
+//                switch result {
+//                    case .success(let data):
+//                        DispatchQueue.main.async {
+//                            cell?.newsImageView = UIImageView(image: UIImage(data: data))
+//                        }
+//                    case .failure(_):
+//                        DispatchQueue.main.async {
+//                            cell?.newsImageView = UIImageView(image: UIImage(named: "newsImage"))
+//                        }
+//                }
+//            }
+//        }
+        return cell ?? UITableViewCell()
     }
 }
