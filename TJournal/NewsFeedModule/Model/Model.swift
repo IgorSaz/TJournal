@@ -22,8 +22,8 @@ struct ResultRequest: Decodable {
 //}
 
 enum Item: Decodable {
-    case onboarding(Array<Data?>)
-    case entry(Data)
+    case onboarding(Array<DataItem?>)
+    case entry(DataItem)
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -31,10 +31,10 @@ enum Item: Decodable {
 
         switch type {
         case "onboarding":
-            let data = try container.decode(Array<Data?>.self, forKey: .data)
+            let data = try container.decode(Array<DataItem?>.self, forKey: .data)
             self = .onboarding(data)
         case "entry":
-            let data = try container.decode(Data.self, forKey: .data)
+            let data = try container.decode(DataItem.self, forKey: .data)
             self = .entry(data)
         default:
             throw DecodingError.unknownType
@@ -51,8 +51,8 @@ enum Item: Decodable {
     }
 }
 
-struct Data: Decodable {
-    let author: Author?
+struct DataItem: Decodable {
+    let author: Author
 }
 
 struct Subsite: Decodable {

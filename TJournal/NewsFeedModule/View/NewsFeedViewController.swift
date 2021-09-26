@@ -27,7 +27,6 @@ class NewsFeedViewController: UIViewController {
             switch result {
                 case .success(let news):
                     print(news)
-                    print("YES DATA")
 //                  DispatchQueue.main.async {
 //                        updateTableView(news)
 //                  }

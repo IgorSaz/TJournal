@@ -11,8 +11,6 @@ class NetworkService {
     static var shared = NetworkService()
     
     func getNews(sortingType: SortingType, completed: @escaping (Result<News, ApiError>) -> Void) {
-            
-        
         let urlString = sortingType.url
         guard let url = URL(string: urlString) else {
             completed(.failure(.invalidUrl))
@@ -39,18 +37,37 @@ class NetworkService {
             
             do {
                 let news = try JSONDecoder().decode(News.self, from: data)
-                print(news)
                 completed(.success(news))
             } catch {
-                print("Failure")
                 completed(.failure(.invalidData))
                 return
             }
+        }.resume()
+    }
+    
+    func loadImage(idImage: String, completed: @escaping (Result<Data, ApiError>) -> Void) {
+        let urlString = "https://leonardo.osnova.io/\(idImage)"
+        print(urlString)
+        
+        guard let url = URL(string: urlString) else {
+            completed(.failure(.invalidUrl))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard error == nil else {
+                completed(.failure(.unableToComplete))
+                return
+            }
             
+            if let data = data {
+                completed(.success(data))
+            } else {
+                completed(.failure(.invalidData))
+            }
         }.resume()
     }
 }
-
 
 enum ApiError: String, Error {
     case invalidUrl = "Адрес страницы не действителен!!!"
@@ -94,24 +111,4 @@ enum SortingType {
                 return baseUrl + "?sorting=all"
         }
     }
-    
-        
-//    func getUrl() -> String {
-//        switch self {
-//            case .hotness:
-//                return baseUrl + "?sorting=hotness"
-//            case .date:
-//                return baseUrl + "?sorting=date"
-//            case .day:
-//                return baseUrl + "?sorting=day"
-//            case .week:
-//                return baseUrl + "?sorting=week"
-//            case .month:
-//                return baseUrl + "?sorting=month"
-//            case .year:
-//                return baseUrl + "?sorting=year"
-//            case .all:
-//                return baseUrl + "?sorting=all"
-//        }
-//    }
 }
