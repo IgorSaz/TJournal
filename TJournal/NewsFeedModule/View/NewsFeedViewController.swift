@@ -85,7 +85,7 @@ extension NewsFeedViewController: UITableViewDataSource {
             }
         }
         
-        cell?.dateNewsLabel.text = self.formatter.string(from: viewModel.newsList[indexPath.row].date)
+        cell?.dateNewsLabel.text = viewModel.newsList[indexPath.row].date
         
         
         //cell?.setupCell(news: self.news, indexPath: indexPath)
