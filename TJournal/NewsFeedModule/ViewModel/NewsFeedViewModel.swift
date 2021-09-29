@@ -10,10 +10,17 @@ import Foundation
 
 class NewsFeedViewModel {
     
+    // MARK: - VAR
     private var news: News?
-    //var messageError: String?
+    var newsList: [NewsItemModel] = []
     
-    var NewsList: [NewsItemModel] = []
+    private var formatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:MM"
+        return formatter
+    }
+    
+    // MARK: - PUBLIC FUNCTION
     
     public func getResultRequest(completed: @escaping (String?) -> Void) {
         NetworkService.shared.getNews(sortingType: .baseUrl) { [weak self] (resultRequest) in
@@ -27,6 +34,14 @@ class NewsFeedViewModel {
             }
         }
     }
+    
+    public func loadImage(idImage: String, completed: @escaping (Data) -> Void) {
+        NetworkService.shared.loadImage(idImage: idImage) { (data) in
+            completed(data)
+        }
+    }
+    
+    // MARK: - PRIVATE FUNCTION
     
     private func writeDataToModel() {
         if let items = news?.result.items {
@@ -43,31 +58,17 @@ class NewsFeedViewModel {
     }
     
     private func appendNewsItem(data: DataItem) {
+        //let idImageNewsItem: String? = nil
         
-        let title = data.title
-        let nameAuthor = data.author.name
-        let nameSbsite = data.subsite.name
-        let idImageSusite = data.subsite.avatar.data.id
-        let idImageNewsItem: String? = nil
-        let date = data.date
+        let date = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.date)))
         
-        let newsItem = NewsItemModel(title: title,
-                                     nameAuthor: nameAuthor,
-                                     nameSubsite: nameSbsite,
-                                     idImageSubsite: idImageSusite,
-                                     idImageNewsItem: idImageNewsItem,
-                                     descreption: "",
-                                     date: Date(timeIntervalSince1970: TimeInterval(date)))
-        NewsList.append(newsItem)
+        newsList.append(NewsItemModel(title: data.title,
+                                      nameAuthor: data.author.name,
+                                      nameSubsite: data.subsite.name,
+                                      idImageSubsite: data.subsite.avatar.data.id,
+                                      idImageNewsItem: nil,
+                                      descreption: "",
+                                      date: Date(timeIntervalSince1970: TimeInterval(data.date)),
+                                      countVoets: ""))
     }
-}
-
-struct NewsItemModel {
-    let title: String
-    let nameAuthor: String
-    let nameSubsite: String
-    let idImageSubsite: String
-    let idImageNewsItem: String?
-    let descreption: String
-    let date: Date
 }

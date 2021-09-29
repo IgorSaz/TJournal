@@ -15,6 +15,13 @@ class NewsFeedViewController: UIViewController {
     
     public var viewModel: NewsFeedViewModel!
     
+    private var formatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:MM"
+        return formatter
+    }
+    
+    
     // MARK: - init View
     
     override func viewDidLoad() {
@@ -25,7 +32,7 @@ class NewsFeedViewController: UIViewController {
         viewModel?.getResultRequest(completed: { (message) in
             if let message = message {
                 DispatchQueue.main.async {
-                    self.creatingErrorAlert(message: message)
+                    self.creatingAlertError(message: message)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -33,37 +40,18 @@ class NewsFeedViewController: UIViewController {
                 }
             }
         })
-        
-        
-        
-        
-        
+
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
         tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
         
         navigationItem.title = "Лента"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.layer.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-        
-//        NetworkService.shared.getNews(sortingType: .baseUrl, completed: { [weak self] result in
-//            switch result {
-//                case .success(let news):
-//                    DispatchQueue.main.async {
-//                        self?.news = news
-//                        self?.tableView.reloadData()
-//                    }
-//                    print(news)
-//                case .failure(let messageError):
-//                    print(messageError)
-//            }
-//        })
     }
     
-    private func creatingErrorAlert(message: String) {
+    private func creatingAlertError(message: String) {
         let alert = UIAlertController(title: "Ошибка Сети", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-        NSLog("The \"OK\" alert occured.")
-        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -75,43 +63,35 @@ class NewsFeedViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
     }
-    
-//    func returnDataImage(indexCell: Int) -> Data? {
-//
-//
-//
-//
-//        return Data?()
-//    }
-    
-    
-    func returnIdImage(indexItem: Int) -> String {
-        let item = news.result.items[indexItem]
-        switch item {
-            case .onboarding(let massDataItem):
-                print(massDataItem)
-                return ""
-            case .entry(let data):
-                print(data)
-                return data.subsite.avatar.data.id
-        }
+}
+
+extension NewsFeedViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel?.newsList.count ?? .zero
     }
 }
 
-extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.NewsList.count ?? .zero
-    }
-    
+extension NewsFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsFeedTableViewCell
         
-        cell?.titleLabel.text = viewModel.NewsList[indexPath.row].title
+        cell?.titleLabel.text = viewModel.newsList[indexPath.row].title
+        cell?.nameSubsiteLabel.text = viewModel.newsList[indexPath.row].nameSubsite
+        cell?.nameAuthorLabel.text = viewModel.newsList[indexPath.row].nameAuthor
         
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd-MM"
-//        let formattedDate = formatter.string(from: viewModel.NewsList[indexPath.row].date)
-//        cell?.dateNewsLabel.text = formattedDate
+        viewModel.loadImage(idImage: viewModel.newsList[indexPath.row].idImageSubsite) { (data) in
+            DispatchQueue.main.async() {
+                cell?.avatarSubsiteImageView.image = UIImage(data: data)
+            }
+        }
+
+        viewModel.loadImage(idImage: viewModel.newsList[indexPath.row].idImageSubsite) { (data) in
+            DispatchQueue.main.async() {
+                cell?.newsImageView.image = UIImage(data: data)
+            }
+        }
+        
+        cell?.dateNewsLabel.text = self.formatter.string(from: viewModel.newsList[indexPath.row].date)
         
         
         //cell?.setupCell(news: self.news, indexPath: indexPath)
