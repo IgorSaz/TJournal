@@ -9,19 +9,13 @@ import UIKit
 
 class NewsFeedViewController: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
+    // MARK: - VAR
     
     var news: News!
-    
     public var viewModel: NewsFeedViewModel!
     
-    private var formatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:MM"
-        return formatter
-    }
-    
-    
+    @IBOutlet var tableView: UITableView!
+
     // MARK: - init View
     
     override func viewDidLoad() {

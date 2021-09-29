@@ -58,7 +58,6 @@ class NewsFeedViewModel {
     }
     
     private func appendNewsItem(data: DataItem) {
-        //let idImageNewsItem: String? = nil
         
         let date = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.date)))
         
@@ -68,7 +67,7 @@ class NewsFeedViewModel {
                                       idImageSubsite: data.subsite.avatar.data.id,
                                       idImageNewsItem: nil,
                                       descreption: "",
-                                      date: Date(timeIntervalSince1970: TimeInterval(data.date)),
+                                      date: date,
                                       countVoets: ""))
     }
 }

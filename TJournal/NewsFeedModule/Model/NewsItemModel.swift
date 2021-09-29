@@ -14,6 +14,6 @@ struct NewsItemModel {
     let idImageSubsite: String
     let idImageNewsItem: String?
     let descreption: String
-    let date: Date
+    let date: String
     let countVoets: String
 }
