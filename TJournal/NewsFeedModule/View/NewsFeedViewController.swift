@@ -14,12 +14,16 @@ class NewsFeedViewController: UIViewController {
     var news: News!
     public var viewModel: NewsFeedViewModel!
     
+    // MARK: - Outlet
+    
     @IBOutlet var tableView: UITableView!
-
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
     // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         setupViews()
         self.viewModel = NewsFeedViewModel()
         self.getNews()
@@ -32,10 +36,12 @@ class NewsFeedViewController: UIViewController {
         viewModel?.getNews(completed: { (message) in
             if let message = message {
                 DispatchQueue.main.async {
+//                    self.activityIndicator.stopAnimating()
                     self.creatingAlertError(message: message)
                 }
             } else {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }
@@ -64,6 +70,10 @@ class NewsFeedViewController: UIViewController {
         
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
         tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
+    }
+    
+    private func setupActivityIndicator() {
+        activityIndicator.isHidden = true
     }
 }
 
@@ -96,30 +106,9 @@ extension NewsFeedViewController: UITableViewDataSource {
                 cell?.newsImageView.image = UIImage(data: data)
             }
         }
-        
+
         cell?.dateNewsLabel.text = viewModel.newsList[indexPath.row].date
         
-        
-        //cell?.setupCell(news: self.news, indexPath: indexPath)
-        
-//        cell?.setupCell(news: self.news, indexPath: indexPath)
-        
-//        let idImage = returnIdImage(indexItem: indexPath.row)
-        
-//        if idImage != "" {
-//            NetworkService.shared.loadImage(idImage: idImage) { (result) in
-//                switch result {
-//                    case .success(let data):
-//                        DispatchQueue.main.async {
-//                            cell?.newsImageView = UIImageView(image: UIImage(data: data))
-//                        }
-//                    case .failure(_):
-//                        DispatchQueue.main.async {
-//                            cell?.newsImageView = UIImageView(image: UIImage(named: "newsImage"))
-//                        }
-//                }
-//            }
-//        }
         return cell ?? UITableViewCell()
     }
 }

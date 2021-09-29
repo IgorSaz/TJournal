@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsFeedViewController" customModule="TJournal" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="jfH-tU-7aj" id="ahf-8c-sd8"/>
                 <outlet property="tableView" destination="WdS-5K-KpF" id="xxx-NN-2mS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -28,6 +29,9 @@
                         <outlet property="delegate" destination="i5M-Pr-FkT" id="W4x-yh-dJx"/>
                     </connections>
                 </tableView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jfH-tU-7aj">
+                    <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -36,6 +40,8 @@
                 <constraint firstItem="WdS-5K-KpF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Biq-3w-gMF"/>
                 <constraint firstItem="WdS-5K-KpF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="IBz-D2-vuk"/>
                 <constraint firstItem="WdS-5K-KpF" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="JDm-h8-qco"/>
+                <constraint firstItem="jfH-tU-7aj" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="c48-ay-dd7"/>
+                <constraint firstItem="jfH-tU-7aj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jHG-Uy-WCh"/>
             </constraints>
             <point key="canvasLocation" x="-710.14492753623199" y="170.75892857142856"/>
         </view>
