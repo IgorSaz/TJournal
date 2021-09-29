@@ -66,18 +66,22 @@ class NewsFeedViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
+        setupTableView()
+        registerCell()
+    }
+    
+    private func setupTableView() {
         tableView.backgroundColor = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.8980392157, alpha: 1)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        
-        let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
-        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
+        tableView.prefetchDataSource = self
     }
     
-    private func setupActivityIndicator() {
-        activityIndicator.isHidden = true
+    private func registerCell() {
+        let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
+        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
     }
 }
 
@@ -115,5 +119,13 @@ extension NewsFeedViewController: UITableViewDataSource {
         cell?.descreptionLabel.text = viewModel.newsList[indexPath.row].descreption
         
         return cell ?? UITableViewCell()
+    }
+}
+
+// MARK: - TableViewDataSourcePrefetching
+
+extension NewsFeedViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        <#code#>
     }
 }
