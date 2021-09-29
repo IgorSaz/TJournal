@@ -34,14 +34,18 @@ class NewsFeedViewController: UIViewController {
     
     private func getNews() {
         viewModel?.getNews(completed: { (message) in
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            }
             if let message = message {
                 DispatchQueue.main.async {
-//                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = false
                     self.creatingAlertError(message: message)
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }
@@ -81,7 +85,7 @@ class NewsFeedViewController: UIViewController {
 
 extension NewsFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.newsList.count ?? .zero
+        viewModel.countItem
     }
 }
 
@@ -108,6 +112,7 @@ extension NewsFeedViewController: UITableViewDataSource {
         }
 
         cell?.dateNewsLabel.text = viewModel.newsList[indexPath.row].date
+        cell?.descreptionLabel.text = viewModel.newsList[indexPath.row].descreption
         
         return cell ?? UITableViewCell()
     }

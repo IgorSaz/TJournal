@@ -20,6 +20,10 @@ class NewsFeedViewModel {
         return formatter
     }
     
+    public var countItem: Int {
+        newsList.count
+    }
+    
     // MARK: - PUBLIC FUNCTION
     
     public func getNews(completed: @escaping (String?) -> Void) {

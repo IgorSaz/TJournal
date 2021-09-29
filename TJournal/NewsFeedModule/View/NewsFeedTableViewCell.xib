@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="394"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newsImage" translatesAutoresizingMaskIntoConstraints="NO" id="xJE-Qx-4L9">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xJE-Qx-4L9">
                         <rect key="frame" x="0.0" y="125" width="414" height="210"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="210" id="DgB-6K-cYZ"/>
@@ -46,18 +46,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Игорь" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6F-OH-DdK">
-                                <rect key="frame" x="195" y="16" width="72" height="21.5"/>
+                                <rect key="frame" x="195" y="16" width="107" height="21.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="5Kq-Dx-f8b"/>
+                                    <constraint firstAttribute="width" constant="107" id="5Kq-Dx-f8b"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1 час" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnY-21-bcA">
-                                <rect key="frame" x="284" y="16" width="122" height="21.5"/>
+                                <rect key="frame" x="316" y="16" width="77" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="122" id="Tbw-1j-jd4"/>
+                                    <constraint firstAttribute="width" constant="77" id="Tbw-1j-jd4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.65110352460075827" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -71,7 +71,7 @@
                             <constraint firstItem="WA3-Ud-Aye" firstAttribute="height" secondItem="trh-Jw-jqQ" secondAttribute="height" multiplier="0.46" id="OTF-iN-9IU"/>
                             <constraint firstItem="WA3-Ud-Aye" firstAttribute="width" secondItem="trh-Jw-jqQ" secondAttribute="width" multiplier="0.300725" constant="12.5" id="Scv-ol-efm"/>
                             <constraint firstItem="r6F-OH-DdK" firstAttribute="bottom" secondItem="WA3-Ud-Aye" secondAttribute="bottom" id="Te4-ls-lkP"/>
-                            <constraint firstItem="fnY-21-bcA" firstAttribute="leading" secondItem="r6F-OH-DdK" secondAttribute="trailing" constant="17" id="UjX-CB-CDf"/>
+                            <constraint firstItem="fnY-21-bcA" firstAttribute="leading" secondItem="r6F-OH-DdK" secondAttribute="trailing" constant="14" id="UjX-CB-CDf"/>
                             <constraint firstItem="8EA-qr-kfp" firstAttribute="leading" secondItem="trh-Jw-jqQ" secondAttribute="leading" constant="16" id="VL0-of-q1R"/>
                             <constraint firstItem="WA3-Ud-Aye" firstAttribute="leading" secondItem="8EA-qr-kfp" secondAttribute="trailing" constant="8" id="aVa-w6-CdS"/>
                             <constraint firstItem="r6F-OH-DdK" firstAttribute="top" secondItem="WA3-Ud-Aye" secondAttribute="top" id="eWZ-qP-yc8"/>
@@ -168,7 +168,6 @@
     <resources>
         <image name="Avatar" width="22" height="22"/>
         <image name="lined (Stroke)" width="20" height="19"/>
-        <image name="newsImage" width="375" height="210"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
