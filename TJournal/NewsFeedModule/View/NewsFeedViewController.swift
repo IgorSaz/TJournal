@@ -34,19 +34,19 @@ class NewsFeedViewController: UIViewController {
     
     private func getNews() {
         viewModel?.getNews(completed: { (message) in
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.isHidden = true
             }
             if let message = message {
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = false
-                    self.creatingAlertError(message: message)
+                DispatchQueue.main.async { [weak self] in
+                    self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.isHidden = false
+                    self?.creatingAlertError(message: message)
                 }
             } else {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableView.reloadData()
                 }
             }
         })
