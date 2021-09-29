@@ -13,11 +13,31 @@ class NewsFeedViewController: UIViewController {
     
     var news: News!
     
+    public var viewModel: NewsFeedViewModel!
+    
     // MARK: - init View
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        self.viewModel = NewsFeedViewModel()
+        
+        viewModel?.getResultRequest(completed: { (message) in
+            if let message = message {
+                DispatchQueue.main.async {
+                    self.creatingErrorAlert(message: message)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        })
+        
+        
+        
+        
+        
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
         tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
         
@@ -25,19 +45,26 @@ class NewsFeedViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.layer.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
         
-        NetworkService.shared.getNews(sortingType: .baseUrl, completed: { [weak self] result in
-            switch result {
-                case .success(let news):
-                    
-                    DispatchQueue.main.async {
-                        self?.news = news
-                        self?.tableView.reloadData()
-                    }
-                    print(news)
-                case .failure(let messageError):
-                    print(messageError)
-            }
-        })
+//        NetworkService.shared.getNews(sortingType: .baseUrl, completed: { [weak self] result in
+//            switch result {
+//                case .success(let news):
+//                    DispatchQueue.main.async {
+//                        self?.news = news
+//                        self?.tableView.reloadData()
+//                    }
+//                    print(news)
+//                case .failure(let messageError):
+//                    print(messageError)
+//            }
+//        })
+    }
+    
+    private func creatingErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка Сети", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+        NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     private func setupViews() {
@@ -73,12 +100,21 @@ class NewsFeedViewController: UIViewController {
 
 extension NewsFeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.news?.result.items.count ?? .zero
+        viewModel?.NewsList.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as? NewsFeedTableViewCell
-        cell?.setupCell(news: self.news, indexPath: indexPath)
+        
+        cell?.titleLabel.text = viewModel.NewsList[indexPath.row].title
+        
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd-MM"
+//        let formattedDate = formatter.string(from: viewModel.NewsList[indexPath.row].date)
+//        cell?.dateNewsLabel.text = formattedDate
+        
+        
+        //cell?.setupCell(news: self.news, indexPath: indexPath)
         
 //        cell?.setupCell(news: self.news, indexPath: indexPath)
         

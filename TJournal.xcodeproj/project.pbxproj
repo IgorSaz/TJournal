@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F71A7773270473C1002164FA /* NewsFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71A7772270473C1002164FA /* NewsFeedViewModel.swift */; };
 		F73F780026FB74ED00E627A2 /* BuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F77FF26FB74ED00E627A2 /* BuilderProtocol.swift */; };
 		F73F780326FB759500E627A2 /* BuilderModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F780226FB759500E627A2 /* BuilderModule.swift */; };
 		F73F780926FB764D00E627A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F780826FB764D00E627A2 /* Model.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F71A7772270473C1002164FA /* NewsFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedViewModel.swift; sourceTree = "<group>"; };
 		F73F77FF26FB74ED00E627A2 /* BuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderProtocol.swift; sourceTree = "<group>"; };
 		F73F780226FB759500E627A2 /* BuilderModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderModule.swift; sourceTree = "<group>"; };
 		F73F780826FB764D00E627A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -53,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F71A7771270473AA002164FA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F71A7772270473C1002164FA /* NewsFeedViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F73F77FD26FB729200E627A2 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +134,7 @@
 		F7DC76DB26FB6FF400B56B2D /* NewsFeedModule */ = {
 			isa = PBXGroup;
 			children = (
+				F71A7771270473AA002164FA /* ViewModel */,
 				F73F780726FB763600E627A2 /* Model */,
 				F73F77FD26FB729200E627A2 /* View */,
 			);
@@ -230,6 +241,7 @@
 				F73F780026FB74ED00E627A2 /* BuilderProtocol.swift in Sources */,
 				F73F780326FB759500E627A2 /* BuilderModule.swift in Sources */,
 				F7FF913F26FE562300B22B53 /* NewsFeedViewController.swift in Sources */,
+				F71A7773270473C1002164FA /* NewsFeedViewModel.swift in Sources */,
 				F7441CD526FC6A2C002CE3DD /* NewsFeedTableViewCell.swift in Sources */,
 				F73F780926FB764D00E627A2 /* Model.swift in Sources */,
 				F7F4407E26FF1A61006832DD /* NetworkServiceProtocol.swift in Sources */,

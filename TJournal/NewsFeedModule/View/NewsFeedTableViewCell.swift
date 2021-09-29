@@ -28,15 +28,19 @@ class NewsFeedTableViewCell: UITableViewCell {
         let item = news.result.items[indexPath.row]
         switch item {
             case .onboarding(_):
+                
                 break
             case .entry(let data):
                 print(data)
                 id = data.subsite.avatar.data.id
+                titleLabel.text = data.title
+                nameAuthorLabel.text = data.author.name
+                dateNewsLabel.text = String(data.date)
         }
         
         self.loadImage(idImage: id) { [weak self] (data) in
             DispatchQueue.main.async() {
-                self?.newsImageView.image = UIImage(data: data)
+                self?.newsImageView.image = nil //UIimage(data: data)
             }
         }
         

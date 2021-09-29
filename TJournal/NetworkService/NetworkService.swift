@@ -37,21 +37,7 @@ class NetworkService {
             
             do {
                 let news = try JSONDecoder().decode(News.self, from: data)
-                
-//                DispatchQueue.main.async {
-//                    completed(.success(news))
-//                }
-                
                 completed(.success(news))
-                
-//                self.loadImage(idImage: "") { (result) in
-//                    switch result {
-//                        case .success(let data):
-//                            print(data)
-//                        case .failure(let error):
-//                            print(error)
-//                    }
-//                }
             } catch {
                 completed(.failure(.invalidData))
                 return
