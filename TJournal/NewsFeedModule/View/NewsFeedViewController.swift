@@ -16,14 +16,20 @@ class NewsFeedViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
 
-    // MARK: - init View
+    // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         self.viewModel = NewsFeedViewModel()
-        
-        viewModel?.getResultRequest(completed: { (message) in
+        self.getNews()
+        self.setupNavigationBar()
+    }
+    
+    // MARK: - PRIVATE METHOD
+    
+    private func getNews() {
+        viewModel?.getNews(completed: { (message) in
             if let message = message {
                 DispatchQueue.main.async {
                     self.creatingAlertError(message: message)
@@ -34,10 +40,9 @@ class NewsFeedViewController: UIViewController {
                 }
             }
         })
-
-        let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
-        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
-        
+    }
+    
+    private func setupNavigationBar() {
         navigationItem.title = "Лента"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.layer.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
@@ -56,14 +61,21 @@ class NewsFeedViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        
+        let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
+        tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
     }
 }
+
+    // MARK: - TableViewDelegate
 
 extension NewsFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.newsList.count ?? .zero
     }
 }
+
+    // MARK: - TableViewDataSource
 
 extension NewsFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

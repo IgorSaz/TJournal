@@ -22,7 +22,7 @@ class NewsFeedViewModel {
     
     // MARK: - PUBLIC FUNCTION
     
-    public func getResultRequest(completed: @escaping (String?) -> Void) {
+    public func getNews(completed: @escaping (String?) -> Void) {
         NetworkService.shared.getNews(sortingType: .baseUrl) { [weak self] (resultRequest) in
             switch resultRequest {
                 case .success(let news):
