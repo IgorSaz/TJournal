@@ -126,6 +126,10 @@ extension NewsFeedViewController: UITableViewDataSource {
         cell?.descreptionLabel.text = viewModel.newsList[indexPath.row].descreption
         return cell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let viewController = 
+    }
 }
 
 // MARK: - TableViewDataSourcePrefetching

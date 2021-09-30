@@ -12,7 +12,6 @@ class NewsFeedViewModel {
     
     // MARK: - VAR
     private var news: News?
-    var newsList: [NewsItemModel] = []
     
     private var formatter: DateFormatter {
         let formatter = DateFormatter()
@@ -23,6 +22,8 @@ class NewsFeedViewModel {
     public var countItem: Int {
         newsList.count
     }
+    
+    public var newsList: [NewsItemModel] = []
     
     // MARK: - PUBLIC FUNCTION
     
