@@ -25,7 +25,6 @@ class NewsFeedViewController: UIViewController {
         super.viewDidLoad()
         activityIndicator.startAnimating()
         setupViews()
-        self.viewModel = NewsFeedViewModel()
         self.getNews()
         self.setupNavigationBar()
     }

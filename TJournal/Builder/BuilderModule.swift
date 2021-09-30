@@ -7,14 +7,16 @@
 
 import UIKit
 
-class Builder: BuilderProtocol {
+class BuilderModule: BuilderProtocol {
+    
+    static var shared = BuilderModule()
     
     public func createNewsFeedModule() -> UIViewController {
+        let view = NewsFeedViewController()
+        let viewModel = NewsFeedViewModel()
         
-        
-        
-        
-        return UIViewController()
+        view.viewModel = viewModel
+        return view
     }
     
     public func createImageDetaileModule() -> UIViewController {
