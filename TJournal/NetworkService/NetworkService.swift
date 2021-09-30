@@ -44,29 +44,7 @@ class NetworkService {
             }
         }.resume()
     }
-    
-//    func loadImage(idImage: String, completed: @escaping (Result<Data, ApiError>) -> Void) {
-//        let urlString = "https://leonardo.osnova.io/\(idImage)"
-//
-//        guard let url = URL(string: urlString) else {
-//            completed(.failure(.invalidUrl))
-//            return
-//        }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            guard error == nil else {
-//                completed(.failure(.unableToComplete))
-//                return
-//            }
-//
-//            if let data = data {
-//                completed(.success(data))
-//            } else {
-//                completed(.failure(.invalidData))
-//            }
-//        }.resume()
-//    }
-    
+        
     public func loadImage(idImage: String, completed: @escaping (Data) -> Void) {
         guard let url = URL(string: "https://leonardo.osnova.io/\(idImage)") else {
             return
