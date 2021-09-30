@@ -27,6 +27,7 @@
                     <connections>
                         <outlet property="dataSource" destination="i5M-Pr-FkT" id="BVg-mv-zG9"/>
                         <outlet property="delegate" destination="i5M-Pr-FkT" id="W4x-yh-dJx"/>
+                        <outlet property="prefetchDataSource" destination="i5M-Pr-FkT" id="v5z-I3-TBj"/>
                     </connections>
                 </tableView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jfH-tU-7aj">

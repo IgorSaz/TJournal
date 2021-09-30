@@ -74,12 +74,26 @@ class NewsFeedViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        //tableView.prefetchDataSource = self
+        tableView.prefetchDataSource = self
     }
     
     private func registerCell() {
         let newsFeedCellNib = UINib(nibName: "NewsFeedTableViewCell", bundle: Bundle.main)
         tableView.register(newsFeedCellNib, forCellReuseIdentifier: "newsCell")
+    }
+    
+    private func downloadImage(forItemAtIndex index: Int) {
+        viewModel.loadImage(idImage: viewModel.newsList[index].idImageSubsite) { (data) in
+            DispatchQueue.main.async() {
+                self.viewModel.newsList[index].newsItemImage = UIImage(data: data)
+            }
+        }
+        
+        viewModel.loadImage(idImage: viewModel.newsList[index].idImageSubsite) { (data) in
+            DispatchQueue.main.async() {
+                self.viewModel.newsList[index].subsiteImage = UIImage(data: data)
+            }
+        }
     }
 }
 
@@ -112,7 +126,7 @@ extension NewsFeedViewController: UITableViewDataSource {
                 cell?.newsImageView.image = UIImage(data: data)
             }
         }
-
+        
         cell?.dateNewsLabel.text = viewModel.newsList[indexPath.row].date
         cell?.descreptionLabel.text = viewModel.newsList[indexPath.row].descreption
         
@@ -122,8 +136,9 @@ extension NewsFeedViewController: UITableViewDataSource {
 
 // MARK: - TableViewDataSourcePrefetching
 
-//extension NewsFeedViewController: UITableViewDataSourcePrefetching {
-//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//
-//    }
-//}
+extension NewsFeedViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        //indexPaths.forEach { self.downloadImage(forItemAtIndex: $0.row) }
+        print("!")
+    }
+}

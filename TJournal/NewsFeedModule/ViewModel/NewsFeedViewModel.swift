@@ -16,7 +16,7 @@ class NewsFeedViewModel {
     
     private var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:MM"
+        formatter.dateFormat = "HH"
         return formatter
     }
     
@@ -62,8 +62,7 @@ class NewsFeedViewModel {
     }
     
     private func appendNewsItem(data: DataItem) {
-        
-        let date = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.date)))
+        let date = formatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.date))) + " час"
         
         newsList.append(NewsItemModel(title: data.title,
                                       nameAuthor: data.author.name,
