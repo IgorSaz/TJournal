@@ -40,8 +40,6 @@ class NewsFeedViewController: UIViewController {
             }
             if let message = message {
                 DispatchQueue.main.async { [weak self] in
-                    self?.activityIndicator.stopAnimating()
-                    self?.activityIndicator.isHidden = false
                     self?.creatingAlertError(message: message)
                 }
             } else {
@@ -76,7 +74,7 @@ class NewsFeedViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.prefetchDataSource = self
+        //tableView.prefetchDataSource = self
     }
     
     private func registerCell() {
@@ -124,8 +122,8 @@ extension NewsFeedViewController: UITableViewDataSource {
 
 // MARK: - TableViewDataSourcePrefetching
 
-extension NewsFeedViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        <#code#>
-    }
-}
+//extension NewsFeedViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//
+//    }
+//}
