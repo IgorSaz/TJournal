@@ -85,13 +85,11 @@ class NewsFeedViewController: UIViewController {
     private func downloadImage(forItemAtIndex index: Int) {
         viewModel.loadImage(idImage: viewModel.newsList[index].idImageSubsite) { (data) in
             DispatchQueue.main.async() {
-                self.viewModel.newsList[index].newsItemImage = UIImage(data: data)
-            }
-        }
-        
-        viewModel.loadImage(idImage: viewModel.newsList[index].idImageSubsite) { (data) in
-            DispatchQueue.main.async() {
                 self.viewModel.newsList[index].subsiteImage = UIImage(data: data)
+                let indexPath = IndexPath(row: index, section: 0)
+                if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
+                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                }
             }
         }
     }
@@ -114,22 +112,18 @@ extension NewsFeedViewController: UITableViewDataSource {
         cell?.titleLabel.text = viewModel.newsList[indexPath.row].title
         cell?.nameSubsiteLabel.text = viewModel.newsList[indexPath.row].nameSubsite
         cell?.nameAuthorLabel.text = viewModel.newsList[indexPath.row].nameAuthor
-        
-        viewModel.loadImage(idImage: viewModel.newsList[indexPath.row].idImageSubsite) { (data) in
-            DispatchQueue.main.async() {
-                cell?.avatarSubsiteImageView.image = UIImage(data: data)
-            }
-        }
-
-        viewModel.loadImage(idImage: viewModel.newsList[indexPath.row].idImageSubsite) { (data) in
-            DispatchQueue.main.async() {
-                cell?.newsImageView.image = UIImage(data: data)
-            }
+            
+        if let image = viewModel.newsList[indexPath.row].subsiteImage {
+            cell?.avatarSubsiteImageView.image = image
+            cell?.newsImageView.image = image
+        } else {
+            cell?.avatarSubsiteImageView.image = nil
+            cell?.newsImageView.image = nil
+            self.downloadImage(forItemAtIndex: indexPath.row)
         }
         
         cell?.dateNewsLabel.text = viewModel.newsList[indexPath.row].date
         cell?.descreptionLabel.text = viewModel.newsList[indexPath.row].descreption
-        
         return cell ?? UITableViewCell()
     }
 }
@@ -138,7 +132,6 @@ extension NewsFeedViewController: UITableViewDataSource {
 
 extension NewsFeedViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        //indexPaths.forEach { self.downloadImage(forItemAtIndex: $0.row) }
-        print("!")
+        indexPaths.forEach { self.downloadImage(forItemAtIndex: $0.row) }
     }
 }
