@@ -24,9 +24,12 @@ class NewsFeedViewModel {
     }
     
     public var newsList: [NewsItemModel] = []
-    
-    // MARK: - PUBLIC FUNCTION
-    
+}
+
+
+// MARK: - PUBLIC FUNCTION
+
+extension NewsFeedViewModel {
     public func getNews(completed: @escaping (String?) -> Void) {
         NetworkService.shared.getNews(sortingType: .baseUrl) { [weak self] (resultRequest) in
             switch resultRequest {
@@ -45,9 +48,11 @@ class NewsFeedViewModel {
             completed(data)
         }
     }
-    
-    // MARK: - PRIVATE FUNCTION
-    
+}
+
+// MARK: - PRIVATE FUNCTION
+
+extension NewsFeedViewModel {
     private func writeDataToModel() {
         if let items = news?.result.items {
             for item in items {
