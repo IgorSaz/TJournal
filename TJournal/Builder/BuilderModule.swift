@@ -14,7 +14,6 @@ class BuilderModule: BuilderProtocol {
     public func createNewsFeedModule() -> UIViewController {
         let view = NewsFeedViewController()
         let viewModel = NewsFeedViewModel()
-        
         view.viewModel = viewModel
         return view
     }

@@ -22,6 +22,6 @@ class NewsFeedTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        avatarSubsiteImageView.layer.cornerRadius = 10
+        avatarSubsiteImageView.layer.cornerRadius = 8
     }
 }
